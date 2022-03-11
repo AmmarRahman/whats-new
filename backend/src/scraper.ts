@@ -1,4 +1,5 @@
-const fetch = require('node-fetch');
+const fetch = require('node-fetch').default;
+
 
 interface NewsItem {
   id: string,
@@ -19,11 +20,15 @@ export async function handler(event: any, context: any) {
 
   console.log('Scraper started');
   console.log(url);
- 
-  fetch(url)
-  .then((data: any) => {
-    console.log(data);
-    console.log('Scraper finished');
-  })
+  let more = false;
+
+  const response = await fetch(url);
+  const data = await response.json()
+  data.items.array.forEach((item: any) => {
+    console.log(item);
+  });
   
+  console.log('Scraper finished');
+
+
 }
