@@ -8,18 +8,44 @@ const dynamoClient = new DynamoDB({});
 //nth refactor as found on https://github.com/aws/aws-sdk-js-v3/blob/main/lib/lib-dynamodb/README.md
 const docClient = DynamoDBDocument.from(dynamoClient);
 
-interface DynamoDBNewsObject extends NewsItem {
-  tags: {[id: string]: Tag}
+// interface DynamoDBNewsObject extends NewsItem {
+//   tags: {[id: string]: Tag}
+// }
+
+
+interface DynamoDBNewsItem extends NewsItem {
+  tags: string
 }
 
-function transformEntry(entry: NewsObject): DynamoDBNewsObject {
-  // just moving the tags inside the news item
-  //convert tags to have ids as keys
-  let tagsObject = Object.assign({}, ...entry.tags.map((tag) => ({[tag.id]: tag})));
-  return { 
-    ...entry.item, 
-    tags: tagsObject
-  }
+function mergeTags(arrays:Array<Array<string>> ):string {
+  let jointArray: Array<string> = []
+  arrays.forEach(tags => {
+      jointArray = [...jointArray, ...tags]
+  })
+  const uniqueArray = jointArray.filter((item,index) => jointArray.indexOf(item) === index)
+
+  return uniqueArray.join('#')
+}
+
+// function transformEntry(entry: NewsObject): DynamoDBNewsObject {
+//   // just moving the tags inside the news item
+//   //convert tags to have ids as keys
+//   let tagsObject = Object.assign({}, ...entry.tags.map((tag: Tag) => ({[tag.id]: tag})));
+//   return { 
+//     ...entry.item, 
+//     tags: tagsObject
+//   }
+// }
+
+function transformEntry(entry: NewsObject):(DynamoDBNewsItem) {
+
+  const tagsArray = entry.tags.map((tag: Tag) => (tag.id.split('#'))); 
+  const newsItem : DynamoDBNewsItem = {...entry.item, tags: mergeTags(tagsArray) };
+
+  
+  // need to add the connection between the news item and the tags
+  
+  return newsItem;
 }
 export async function handler(event: any, context: any) {
 
@@ -47,6 +73,7 @@ export async function handler(event: any, context: any) {
     data.items.forEach(async (entry: NewsObject) => {
       const params = {
         TableName: process.env.TABLE_NAME as string,
+        conditionExpression: 'attribute_not_exists(id)',
         Item: transformEntry(entry)
       }
       //add to dynamo

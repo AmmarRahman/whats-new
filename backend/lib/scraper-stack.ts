@@ -9,6 +9,7 @@ export class ScraperStack extends Stack {
     //DynamoDb
     const table = new dynamodb.Table(this, 'NewsTable', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'tags', type: dynamodb.AttributeType.STRING },
       tableName: 'AWSNews',
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: RemovalPolicy.DESTROY
