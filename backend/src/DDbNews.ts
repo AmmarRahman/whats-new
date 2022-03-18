@@ -21,7 +21,7 @@ export class ddBPost {
         const postDate = new Date(post.additionalFields.postDateTime);
         // FFS - Another Javascript oddity where months start from 0
         let pk = `POST#${postDate.getFullYear()}#${postDate.getMonth() + 1}`;
-        let sk = `${post.id}#`;
+        let sk = `${post.id}`;
 
         return { ...entry.item, pk, sk };
 
