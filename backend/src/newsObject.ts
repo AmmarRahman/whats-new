@@ -17,8 +17,8 @@ export interface NewsItem {
     dateUpdated: Date,
     additionalFields: {
         postBody: string,
-        directoryId: string,
-        relatedBlog: string,
+        directoryId?: string,
+        relatedBlog?: string,
         modifiedDate?: Date,
         headlineUrl: string,
         postDateTime: Date,
