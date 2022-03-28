@@ -1,20 +1,16 @@
-schema {
-  query: Query
-}
-
 type AWSNews {
   additionalFields: AdditionalFields
   author: String
   createdBy: String
   dateCreated: AWSDateTime
   dateUpdated: AWSDateTime
-  id: String!
+  pk: String!
+  sk: String!
   lastUpdatedBy: String
   locale: String
   name: String
   numImpressions: Int
   score: Int
-  tags: String!
 }
 
 type AWSNewsCollection {
@@ -34,8 +30,7 @@ type AdditionalFields {
 }
 
 input TableAWSNewsFilterInput {
-  id: TableStringFilterInput
-  tags: TableStringFilterInput
+  pk: TableStringFilterInput
 }
 
 
@@ -55,6 +50,6 @@ input TableStringFilterInput {
 
 
 type Query {
-  getAWSNews(id: String!, tags: String!): AWSNews
-  listAWSNews(filter: TableAWSNewsFilterInput, limit: Int, nextToken: String): AWSNewsCollection
+  getAWSNews(pk: String!): AWSNews
+  listAWSNews(filter: TableAWSNewsFilterInput, limit: Int): AWSNewsCollection
 }
