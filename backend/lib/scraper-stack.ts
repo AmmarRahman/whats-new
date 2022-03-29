@@ -3,11 +3,12 @@ import { Construct } from 'constructs';
 
 
 export class ScraperStack extends Stack {
+  public dbTable: dynamodb.Table;
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     //DynamoDb
-    const table = new dynamodb.Table(this, 'NewsTable', {
+    this.dbTable = new dynamodb.Table(this, 'NewsTable', {
       partitionKey: { name: 'pk', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'sk', type: dynamodb.AttributeType.STRING },
       tableName: 'AWSNews',
@@ -21,14 +22,14 @@ export class ScraperStack extends Stack {
       entry: './src/scraper.ts',
       timeout: Duration.seconds(300),
       environment: {
-        TABLE_NAME: table.tableName,
+        TABLE_NAME: this.dbTable.tableName,
         SEARCH_URL: 'https://aws.amazon.com/api/dirs/items/search'
       },
 
     });
 
     //Role
-    table.grantReadWriteData(scraper.grantPrincipal)
+    this.dbTable.grantReadWriteData(scraper.grantPrincipal)
 
 
     //Scheudler
@@ -37,5 +38,10 @@ export class ScraperStack extends Stack {
     });
     eventRule.addTarget(new aws_events_targets.LambdaFunction(scraper))
 
+
+
   }
+
+
+
 }
