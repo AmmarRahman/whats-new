@@ -1,4 +1,3 @@
-import React from 'react';
 import { app } from '../../common/constants';
 import { LayoutContainer } from '../LayoutContainer/LayoutContainer';
 

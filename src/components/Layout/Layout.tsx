@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { lazyComponent } from '../../common/utils';
 import { ErrorBoundarySuspense } from '../ErrorBoundarySuspense/ErrorBoundarySuspense';
 

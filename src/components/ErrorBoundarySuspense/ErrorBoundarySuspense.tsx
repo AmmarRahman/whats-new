@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, Suspense } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import { Loading } from '../Loading/Loading';
 
