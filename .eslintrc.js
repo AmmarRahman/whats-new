@@ -28,7 +28,7 @@ module.exports = {
     // Sets up: eslint-config-prettier, eslint-plugin-prettier
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['build', 'coverage', 'serviceWorkerRegistration.ts'],
+  ignorePatterns: ['build', 'coverage', 'serviceWorkerRegistration.ts', 'backend'],
   parserOptions: {
     project: 'tsconfig.json',
     // Fixes Parsing error: Cannot read tsconfig for nested projects, https://stackoverflow.com/a/64940811
