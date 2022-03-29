@@ -17,5 +17,5 @@
     "target": "es5"
   },
   "extends": "./tsconfig.base.json",
-  "exclude": ["node_modules", "backend"]
+  "exclude": ["node_modules", "backend", "frontend"]
 }

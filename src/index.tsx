@@ -1,11 +1,19 @@
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { enableAllPlugins } from 'immer';
-import React, { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './assets/scss/index.scss';
 import { App } from './components/App/App';
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+const httpLink = createHttpLink({ uri: process.env.REACT_APP_ENV_API_KEY });
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
 
 enableAllPlugins();
 // If you want to start measuring performance in your app, pass a function to log results (for
@@ -19,7 +27,9 @@ serviceWorkerRegistration.register();
 ReactDOM.render(
   <StrictMode>
     <ErrorBoundary>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </ErrorBoundary>
   </StrictMode>,
   document.getElementById('app')
