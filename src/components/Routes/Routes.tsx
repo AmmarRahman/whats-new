@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes as RoutesRRD } from 'react-router-dom';
 import { lazyComponent } from '../../common/utils';
 

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import classes from './LayoutContainer.module.scss';
 
 export interface LayoutContainerProps {

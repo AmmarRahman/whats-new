@@ -8,7 +8,8 @@ import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-const httpLink = createHttpLink({ uri: process.env.REACT_APP_ENV_API_KEY });
+const httpLink = createHttpLink({ uri: process.env.REACT_APP_API_URL });
+console.log(process.env.REACT_APP_API_URL);
 
 const client = new ApolloClient({
   link: httpLink,

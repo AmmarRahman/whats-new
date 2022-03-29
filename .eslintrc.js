@@ -39,6 +39,8 @@ module.exports = {
     'import/no-cycle': ['error', { maxDepth: 1 }],
     'import/order': ['error', { alphabetize: { order: 'asc' } }],
     'import/prefer-default-export': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
     'no-param-reassign': [
       'error',
       // Immer - https://github.com/immerjs/immer/issues/189#issuecomment-703083451
