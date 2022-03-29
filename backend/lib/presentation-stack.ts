@@ -56,6 +56,11 @@ export class PresentationStack extends Stack {
             exportName: 'GraphQLApiId'
         });
 
+        new CfnOutput(this, 'GraphQLApiURL', {
+            value: api.graphqlUrl,
+            exportName: 'GraphQLApiURL'
+        });
+
     }
 
 
