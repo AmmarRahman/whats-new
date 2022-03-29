@@ -13,6 +13,7 @@ module.exports = {
   extends: [
     'react-app',
     'react-app/jest',
+    'plugin:react/jsx-runtime',
     // peerDependencies: eslint, import, jsx-a11y, react, react-hooks
     'airbnb',
     // https://github.com/iamturns/eslint-config-airbnb-typescript#user-content-i-wish-this-config-would-support-
@@ -28,7 +29,7 @@ module.exports = {
     // Sets up: eslint-config-prettier, eslint-plugin-prettier
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['build', 'coverage', 'serviceWorkerRegistration.ts', 'backend'],
+  ignorePatterns: ['build', 'coverage', 'serviceWorkerRegistration.ts', 'backend', 'frontedn'],
   parserOptions: {
     project: 'tsconfig.json',
     // Fixes Parsing error: Cannot read tsconfig for nested projects, https://stackoverflow.com/a/64940811
