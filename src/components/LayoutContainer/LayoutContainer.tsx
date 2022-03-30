@@ -10,7 +10,7 @@ export interface LayoutContainerProps {
 
 export const LayoutContainer = ({
   children,
-  className = '',
+  className = 'flex md:container md:mx-auto',
   isFluid = true,
   role,
   Tag = 'div',
