@@ -8,22 +8,16 @@ import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-const httpLink = createHttpLink({ uri: process.env.REACT_APP_API_URL });
-let client: ApolloClient<any>;
-if (process.env.REACT_APP_API_KEY) {
-  client = new ApolloClient({
-    link: httpLink,
-    cache: new InMemoryCache(),
-    headers: {
-      'x-api-key': process.env.REACT_APP_API_KEY,
-    },
-  });
-} else {
-  client = new ApolloClient({
-    link: httpLink,
-    cache: new InMemoryCache(),
-  });
-}
+const httpLink = createHttpLink({
+  uri: process.env.REACT_APP_API_URL,
+  headers: {
+    'X-Api-Key': 'da2-xwwitchrefcp7lxx5dpavfwx3m',
+  },
+});
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
 
 enableAllPlugins();
 // If you want to start measuring performance in your app, pass a function to log results (for
