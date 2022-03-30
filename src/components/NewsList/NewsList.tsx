@@ -9,6 +9,7 @@ const NEWS_QUERY = gql`
         additionalFields {
           headline
           headlineUrl
+          postDateTime
         }
         name
       }

@@ -16,13 +16,12 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const url = process.env.REACT_APP_API_URL || 'http://localhost:4000/graphql';
+const apiKey = process.env.REACT_APP_API_KEY || 'local';
 const region = 'eu-west-1';
 const auth: AuthOptions = {
   type: 'API_KEY',
-  apiKey: process.env.REACT_APP_API_KEY || 'apiKey',
+  apiKey,
 };
-
-console.log(`Using API URL: ${process.env.REACT_APP_API_KEY}`);
 
 const httpLink = createHttpLink({ uri: url });
 
