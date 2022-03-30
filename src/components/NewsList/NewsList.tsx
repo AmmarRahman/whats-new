@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import Post from '../Post/Post';
 
 const NEWS_QUERY = gql`
-  query MyQuery {
+  query GetLatestNews {
     listAWSNews {
       items {
         sk
@@ -18,12 +18,13 @@ const NEWS_QUERY = gql`
 
 export const NewsList = () => {
   const { data } = useQuery(NEWS_QUERY);
-  console.log(data);
+  const items = data?.listAWSNews?.items;
+
   return (
     <div>
-      {data && (
+      {items && (
         <>
-          {data.items.map((post: any) => (
+          {items.map((post: any) => (
             <Post key={post.sk} post={post.additionalFields} />
           ))}
         </>

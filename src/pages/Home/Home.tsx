@@ -10,7 +10,6 @@ export const Home = (): JSX.Element => {
 
   return (
     <Page description={homeText} keywords={homeText} title={homeText}>
-      <div> hello </div>
       <NewsList />
     </Page>
   );
