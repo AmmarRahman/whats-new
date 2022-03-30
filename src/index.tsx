@@ -1,4 +1,11 @@
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import { AuthOptions, createAuthLink } from 'aws-appsync-auth-link';
 import { enableAllPlugins } from 'immer';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
@@ -8,14 +15,21 @@ import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_API_URL,
-  headers: {
-    'X-Api-Key': 'da2-xwwitchrefcp7lxx5dpavfwx3m',
-  },
-});
+const url = process.env.REACT_APP_API_URL || 'http://localhost:4000/graphql';
+const region = 'eu-west-1';
+const auth: AuthOptions = {
+  type: 'API_KEY',
+  apiKey: process.env.REACT_APP_API_KEY || 'apiKey',
+};
+
+console.log(`Using API URL: ${process.env.REACT_APP_API_KEY}`);
+
+const httpLink = createHttpLink({ uri: url });
+
+const link = ApolloLink.from([createAuthLink({ url, region, auth }), httpLink]);
+
 const client = new ApolloClient({
-  link: httpLink,
+  link,
   cache: new InMemoryCache(),
 });
 
