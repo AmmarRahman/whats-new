@@ -1,5 +1,4 @@
 import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache } from '@apollo/client';
-import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist';
 import { AuthOptions, createAuthLink } from 'aws-appsync-auth-link';
 
 const url = process.env.REACT_APP_API_URL || 'http://localhost:4000/graphql';
@@ -18,19 +17,19 @@ const getApolloClient = async () => {
 
   const cache = new InMemoryCache();
 
-  const persistor = new CachePersistor({
-    cache,
-    storage: new LocalStorageWrapper(window.localStorage),
-  });
+  //   const persistor = new CachePersistor({
+  //     cache,
+  //     storage: new LocalStorageWrapper(window.localStorage),
+  //   });
 
-  const currentVersion = window.localStorage.getItem(SCHEMA_VERSION_KEY);
+  //   const currentVersion = window.localStorage.getItem(SCHEMA_VERSION_KEY);
 
-  if (currentVersion === SCHEMA_VERSION) {
-    await persistor.restore();
-  } else {
-    await persistor.purge();
-    window.localStorage.setItem(SCHEMA_VERSION_KEY, SCHEMA_VERSION);
-  }
+  //   if (currentVersion === SCHEMA_VERSION) {
+  //     await persistor.restore();
+  //   } else {
+  //     await persistor.purge();
+  //     window.localStorage.setItem(SCHEMA_VERSION_KEY, SCHEMA_VERSION);
+  //   }
 
   return new ApolloClient({ link, cache });
 };
