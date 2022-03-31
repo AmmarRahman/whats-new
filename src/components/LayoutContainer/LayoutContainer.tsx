@@ -10,12 +10,12 @@ export interface LayoutContainerProps {
 
 export const LayoutContainer = ({
   children,
-  className = 'flex md:container md:mx-auto',
+  className = 'lg:container lg:mx-auto',
   isFluid = true,
   role,
   Tag = 'div',
 }: PropsWithChildren<LayoutContainerProps>): JSX.Element => (
-  <Tag className={`${classes.root} ${className}`} role={role}>
+  <Tag className={`lg:container lg:mx-auto ${className}`} role={role}>
     <div className={isFluid ? classes.fluid : undefined}>{children}</div>
   </Tag>
 );

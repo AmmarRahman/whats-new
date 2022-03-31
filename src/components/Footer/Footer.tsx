@@ -3,6 +3,9 @@ import { LayoutContainer } from '../LayoutContainer/LayoutContainer';
 
 export const Footer = (): JSX.Element => (
   <LayoutContainer role="contentinfo" Tag="footer">
-    <p>Copyright &#xA9; {`${new Date().getFullYear()} ${app.name}`}</p>
+    <div className="text-center p-6 bg-gray-200">
+      <span>Copyright {new Date().getFullYear()}:</span>
+      <span className="text-gray-600 font-semibold pl-2">{`${app.name}`}</span>
+    </div>
   </LayoutContainer>
 );
