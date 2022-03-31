@@ -13,7 +13,7 @@ const auth: AuthOptions = {
 };
 
 const getApolloClient = async () => {
-  const httpLink = createHttpLink({ uri: url });
+  const httpLink = createHttpLink({ uri: url, useGETForQueries: true });
   const link = ApolloLink.from([createAuthLink({ url, region, auth }), httpLink]);
 
   const cache = new InMemoryCache();
