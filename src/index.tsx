@@ -6,6 +6,10 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import { AuthOptions, createAuthLink } from 'aws-appsync-auth-link';
+<<<<<<< HEAD
+=======
+import { enableAllPlugins } from 'immer';
+>>>>>>> 1d74049d3d07b66437b9a336bc29f2ec8a2bdd05
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './assets/scss/index.scss';
@@ -31,6 +35,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+<<<<<<< HEAD
+=======
+enableAllPlugins();
+>>>>>>> 1d74049d3d07b66437b9a336bc29f2ec8a2bdd05
 // If you want to start measuring performance in your app, pass a function to log results (for
 // example: reportWebVitals(console.log)) or send to an analytics endpoint. Learn more:
 // https://bit.ly/CRA-vitals
