@@ -18,7 +18,7 @@ const NEWS_QUERY = gql`
 `;
 
 export const NewsList = () => {
-  const { data } = useQuery(NEWS_QUERY);
+  const { data } = useQuery(NEWS_QUERY, { fetchPolicy: 'cache-and-network' });
   const items = data?.listAWSNews?.items;
 
   return (
