@@ -34,8 +34,8 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#252F3E",
+  "background_color": "#FF9900",
   "orientation": "any",
   "shortcuts": [
     {
