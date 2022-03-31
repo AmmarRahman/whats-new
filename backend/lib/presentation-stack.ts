@@ -1,5 +1,5 @@
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
-import { aws_dynamodb as dynamodb, Stack, StackProps } from 'aws-cdk-lib';
+import { aws_dynamodb as dynamodb, CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 //TODO: This needs a lot of work. 
@@ -51,7 +51,15 @@ export class PresentationStack extends Stack {
             // responseMappingTemplate: appsync.MappingTemplate.dynamoDbResultList(),
             responseMappingTemplate: appsync.MappingTemplate.fromString("$util.toJson($context.result)")
         });
+        new CfnOutput(this, 'GraphQLApiId', {
+            value: api.apiId,
+            exportName: 'GraphQLApiId'
+        });
 
+        new CfnOutput(this, 'GraphQLApiURL', {
+            value: api.graphqlUrl,
+            exportName: 'GraphQLApiURL'
+        });
 
     }
 

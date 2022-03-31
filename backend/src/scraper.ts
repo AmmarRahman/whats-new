@@ -4,7 +4,7 @@ import { DynamoDB } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { ddBPost, ddBTag } from "./DDbNews";
 import { NewsObject, Tag } from "./newsObject";
-const fetch = require('node-fetch').default;
+const fetch = require("node-fetch").default;
 const dynamoClient = new DynamoDB({});
 //nth refactor as found on https://github.com/aws/aws-sdk-js-v3/blob/main/lib/lib-dynamodb/README.md
 const docClient = DynamoDBDocument.from(dynamoClient);
@@ -18,11 +18,9 @@ function serializerHelper(key: string, value: any): any {
   // }
 
   return value;
-
 }
 export async function handler(event: any, context: any) {
-
-  console.log('Scraper started');
+  console.log("Scraper started ▶️");
   let getResults = true;
   let page = 0;
   let searchParameters = [
@@ -31,59 +29,41 @@ export async function handler(event: any, context: any) {
     `sort_order=desc`,
     `size=25`,
     `item.locale=en_US`,
-    `page=${page}`
-
-  ]
+    `page=${page}`,
+  ];
 
   while (getResults) {
-    let url = process.env.SEARCH_URL + "?" + searchParameters.join('&');
+    let url = process.env.SEARCH_URL + "?" + searchParameters.join("&");
 
-    const response = await fetch(url);
-    const rawData = await response.text();
-    // console.log ("rawData",rawData)
+    const webResponse = await fetch(url);
+    const rawData = await webResponse.text();
     const data = JSON.parse(rawData, serializerHelper);
-
-    
 
     // TODO - we are adding both the tags and the news items but not the connection between the two. Still need to figure out the best way to do it.
     data.items.forEach(async (entry: NewsObject) => {
       //write the post to the db
-      const params = {
+      let params = {
         TableName: process.env.TABLE_NAME as string,
-        conditionExpression: 'attribute_not_exists(sk)',
-        Item: ddBPost.getWriteObject(entry)
-      }
-      //add to dynamo
-      try {
-        const response = await docClient.put(params);
-        console.log(response);
-        // return response
-      }
-      catch (err) {
-        console.log(err);
-        return err
-      }
+        // conditionExpression: "attribute_not_exists(sk)",
+        Item: ddBPost.getWriteObject(entry),
+      };
+      const response = await docClient.put(params);
+      console.log("response", response);
 
       //write the tags to the db
       entry.tags.forEach(async (tag: Tag) => {
         const params = {
           TableName: process.env.TABLE_NAME as string,
-          conditionExpression: 'attribute_not_exists(sk)',
-          Item: ddBTag.getWriteObject(tag)
-        }
+          // conditionExpression: "attribute_not_exists(sk)",
+          Item: ddBTag.getWriteObject(tag),
+        };
+
         //add to dynamo
-        try {
-          const response = await docClient.put(params);
-          console.log(response);
-        }
-        catch (err) {
-          console.log(err);
-          return err
-        }
+        const response = await docClient.put(params);
+        console.log(response);
+      });
 
-      })
-
-      return {response: 'success 🤞'}
+      return { response: "success 🤞" };
     });
 
     page++;
@@ -92,9 +72,5 @@ export async function handler(event: any, context: any) {
     getResults = false;
   }
 
-
-
-  console.log('Scraper finished');
-
-
+  console.log("Scraper finished ⏹️");
 }
